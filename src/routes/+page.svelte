@@ -23,9 +23,12 @@
 				<Carousel.Item class="md:basis-1/2 lg:basis-1/3">
 					<Card.Root class="p-3">
 						<img class="mb-4 aspect-auto rounded-lg" src={product.image} alt={product.title} />
-						<h2 class="mb-2 text-lg font-semibold">{product.title}</h2>
-						<p class="text-gray-500">${product.price}</p>
-						<a class="text-blue-500 hover:underline" href={`/${product.handle}`}>View Product</a>
+
+						<div class="space-y-2">
+							<h2 class="mb-2 text-lg font-semibold">{product.title}</h2>
+							<p class="text-gray-500">${product.price}</p>
+							<Button href={`/${product.handle}`} size="sm" variant="outline">View Product</Button>
+						</div>
 					</Card.Root>
 				</Carousel.Item>
 			{/each}
@@ -34,5 +37,5 @@
 		<Carousel.Next />
 	</Carousel.Root>
 
-	<Button type="submit" class="mt-4">Check out</Button>
+	<Button type="submit" class="mx-auto mt-7 block">Check out</Button>
 </form>
