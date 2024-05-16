@@ -10,7 +10,7 @@
 
 <h1 class="mb-6 text-center text-4xl font-bold italic">Slider</h1>
 
-<form method="post" action="?/checkOut" use:enhance class="mx-auto w-fit">
+<form method="post" action="?/checkOut" use:enhance class="sm:mx-auto sm:w-fit">
 	<Carousel.Root
 		opts={{
 			align: 'start',
