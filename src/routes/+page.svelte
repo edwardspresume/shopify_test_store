@@ -10,13 +10,13 @@
 
 <h1 class="mb-6 text-center text-4xl font-bold italic">Slider</h1>
 
-<form method="post" action="?/checkOut" use:enhance class="sm:mx-auto sm:w-fit">
+<form method="post" action="?/checkOut" use:enhance class="grid">
 	<Carousel.Root
 		opts={{
 			align: 'start',
 			loop: true
 		}}
-		class="w-full max-w-5xl"
+		class="mx-auto w-full max-w-xs sm:max-w-5xl"
 	>
 		<Carousel.Content>
 			{#each data.products as product (product.handle)}
@@ -37,5 +37,5 @@
 		<Carousel.Next />
 	</Carousel.Root>
 
-	<Button type="submit" class="mx-auto mt-7 block">Check out</Button>
+	<Button type="submit" class="mx-auto mt-7">Check out</Button>
 </form>
