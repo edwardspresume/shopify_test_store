@@ -26,7 +26,7 @@
 
 						<div class="space-y-2">
 							<h2 class="mb-2 text-lg font-semibold">{product.title}</h2>
-							<p class="text-gray-500">${product.price}</p>
+							<p class="text-muted-foreground">${product.price}</p>
 							<Button href={`/${product.handle}`} size="sm" variant="outline">View Product</Button>
 						</div>
 					</Card.Root>
