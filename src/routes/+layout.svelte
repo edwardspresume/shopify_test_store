@@ -32,7 +32,7 @@
 	</div>
 </header>
 
-<main class="container pb-4">
+<main class="container pb-10">
 	{@render children()}
 </main>
 
