@@ -25,7 +25,7 @@
 						<img class="mb-4 aspect-auto rounded-lg" src={product.image} alt={product.title} />
 
 						<div class="space-y-2">
-							<h2 class="mb-2 text-lg font-semibold">{product.title}</h2>
+							<h2 class="text-lg font-semibold">{product.title}</h2>
 							<p class="text-muted-foreground">${product.price}</p>
 							<Button href={`/${product.handle}`} size="sm" variant="outline">View Product</Button>
 						</div>
