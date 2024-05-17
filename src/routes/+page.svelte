@@ -1,17 +1,36 @@
-<script>
+<script lang="ts">
 	import { enhance } from '$app/forms';
-	import Button from '$lib/components/ui/button/button.svelte';
 
+	import { route } from '$lib/ROUTES';
+	import type { CarouselAPI } from '$lib/components/ui/carousel/context';
+
+	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import * as Carousel from '$lib/components/ui/carousel';
 
 	const { data } = $props();
+
+	let { products } = data;
+
+	let currentSlide = $state(0);
+	let carouselApi: CarouselAPI | undefined = $state(undefined);
+
+	$effect(() => {
+		if (carouselApi) {
+			currentSlide = carouselApi.selectedScrollSnap() + 1;
+
+			carouselApi.on('select', () => {
+				if (carouselApi) currentSlide = carouselApi.selectedScrollSnap() + 1;
+			});
+		}
+	});
 </script>
 
 <h1 class="mb-6 text-center text-4xl font-bold italic">Slider</h1>
 
-<form method="post" action="?/checkOut" use:enhance class="grid">
+<form method="post" action={route('checkOut /')} use:enhance class="grid">
 	<Carousel.Root
+		bind:api={carouselApi}
 		opts={{
 			align: 'start',
 			loop: true
@@ -19,7 +38,7 @@
 		class="mx-auto w-full max-w-xs sm:max-w-5xl"
 	>
 		<Carousel.Content>
-			{#each data.products as product (product.handle)}
+			{#each products as product (product.handle)}
 				<Carousel.Item class="md:basis-1/2 lg:basis-1/3">
 					<Card.Root class="p-3">
 						<img class="mb-4 aspect-auto rounded-lg" src={product.image} alt={product.title} />
@@ -36,6 +55,8 @@
 		<Carousel.Previous />
 		<Carousel.Next />
 	</Carousel.Root>
+
+	<input type="hidden" name="productVariantId" value={products[currentSlide].variantId} />
 
 	<Button type="submit" class="mx-auto mt-7">Check out</Button>
 </form>
