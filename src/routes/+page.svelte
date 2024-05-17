@@ -35,11 +35,11 @@
 			align: 'start',
 			loop: true
 		}}
-		class="mx-auto w-full max-w-xs sm:max-w-5xl"
+		class="mx-auto max-w-xs sm:max-w-5xl"
 	>
-		<Carousel.Content>
+		<Carousel.Content class="-ml-2 md:-ml-4">
 			{#each products as product (product.handle)}
-				<Carousel.Item class="md:basis-1/2 lg:basis-1/3">
+				<Carousel.Item class="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3">
 					<Card.Root class="p-3">
 						<img class="mb-4 aspect-auto rounded-lg" src={product.image} alt={product.title} />
 
