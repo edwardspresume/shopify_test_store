@@ -1,4 +1,5 @@
 import { productsQuery, shopifyClient, singleItemCheckoutQuery } from '$lib/server';
+import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 type ProductNode = {
@@ -46,30 +47,43 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	checkOut: async ({}) => {
+	checkOut: async ({ request }) => {
+		const formData = await request.formData();
+		const productVariantId = formData.get('productVariantId');
+
+		if (!productVariantId) {
+			fail(400, {
+				message: 'Invalid product variant ID'
+			});
+		}
+
+		let checkoutUrl: string;
+
 		try {
-			const variantId = 'gid://shopify/ProductVariant/40999922630790';
 			const quantity = 1;
 
-			const { data: checkoutData, errors } = await shopifyClient.request(singleItemCheckoutQuery, {
+			const { data: checkoutData } = await shopifyClient.request(singleItemCheckoutQuery, {
 				variables: {
 					cartInput: {
 						lines: [
 							{
 								quantity: quantity,
-								merchandiseId: variantId
+								merchandiseId: productVariantId
 							}
 						]
 					}
 				}
 			});
 
-			console.clear();
-			console.log({ checkoutData });
-			console.log(errors);
+			checkoutUrl = checkoutData.cartCreate.cart.checkoutUrl;
 		} catch (error) {
 			console.error('Failed to create checkout:', error);
-			return null;
+
+			return fail(500, {
+				message: 'Failed to create checkout'
+			});
 		}
+
+		throw redirect(303, checkoutUrl);
 	}
 };
