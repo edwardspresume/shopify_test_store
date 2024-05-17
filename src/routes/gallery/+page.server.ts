@@ -1,5 +1,5 @@
-import { productsQuery, shopifyClient, singleItemCheckoutQuery } from '$lib/server';
-import type { Actions, PageServerLoad } from './$types';
+import { productsQuery, shopifyClient } from '$lib/server';
+import type { PageServerLoad } from './$types';
 
 type ProductNode = {
 	title: string;
@@ -44,32 +44,3 @@ export const load = (async () => {
 		return { products: [] };
 	}
 }) satisfies PageServerLoad;
-
-export const actions: Actions = {
-	checkOut: async ({}) => {
-		try {
-			const variantId = 'gid://shopify/ProductVariant/40999922630790';
-			const quantity = 1;
-
-			const { data: checkoutData, errors } = await shopifyClient.request(singleItemCheckoutQuery, {
-				variables: {
-					cartInput: {
-						lines: [
-							{
-								quantity: quantity,
-								merchandiseId: variantId
-							}
-						]
-					}
-				}
-			});
-
-			console.clear();
-			console.log({ checkoutData });
-			console.log(errors);
-		} catch (error) {
-			console.error('Failed to create checkout:', error);
-			return null;
-		}
-	}
-};
