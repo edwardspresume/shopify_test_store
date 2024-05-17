@@ -20,10 +20,9 @@
 				<Button
 					href={link.href}
 					size="sm"
-					variant="outline"
+					variant={isCurrentPage ? 'default' : 'outline'}
 					aria-label={link.ariaLabel}
 					aria-current={isCurrentPage}
-					class="hover:bg-accent-foreground hover:text-background"
 				>
 					{link.title}
 				</Button>
@@ -35,11 +34,3 @@
 <main class="container pb-10">
 	{@render children()}
 </main>
-
-<style lang="postcss">
-	nav :global {
-		a[aria-current='page'] {
-			@apply bg-accent-foreground text-background;
-		}
-	}
-</style>
