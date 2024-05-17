@@ -36,7 +36,6 @@ export const load = (async () => {
 			})
 		);
 
-		console.log({ products });
 		return {
 			products
 		};
@@ -70,6 +69,10 @@ export const actions: Actions = {
 								quantity: quantity,
 								merchandiseId: productVariantId
 							}
+						],
+						attributes: [
+							{ key: 'customName', value: 'Example Name' },
+							{ key: 'font', value: 'default' }
 						]
 					}
 				}
